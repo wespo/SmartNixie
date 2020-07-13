@@ -30,6 +30,12 @@ class Nixie:
         value = self.muxSpares(self.addresses[tubeNumber], value)
         self.bus.write_byte_data(self.addresses[tubeNumber]['address'], 0x00, value)
     def printTubes(self, value, blank=0): #set the number displayed across all tubes, highest digits will be ignored
+        if type(value) != int:
+            try:
+                value = int(value)
+            except:
+                print("Bad Value.")
+                return
         tempValue = value;
         for address in reversed(self.addresses):
             if((blank == 1 or blank == 2) and tempValue%10 == 0 and tempValue/10 == 0):
